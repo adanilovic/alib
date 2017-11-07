@@ -2,21 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int *_input = NULL;
-int *_output = NULL;
-size_t _num_input_elements = 0;
-
-void print_all() {
-    for(int i = 0; i < _num_input_elements; ++i) {
-        printf("merge, input[%02x] = %d\n", i, _input[i]);
-    }
-
-    for(int i = 0; i < _num_input_elements; ++i) {
-        printf("merge, output[%02x] = %d\n", i, _output[i]);
-    }
-}
-
-void merge(int inputA[], size_t lengthA, int inputB[], size_t lengthB, int output[]) {
+static void merge(int inputA[], size_t lengthA, int inputB[], size_t lengthB, int output[]) {
 
     int i = 0;
     int j = 0;
@@ -52,23 +38,9 @@ void merge(int inputA[], size_t lengthA, int inputB[], size_t lengthB, int outpu
 
 
     }
-
-    for(int i = 0; i < lengthA; ++i) {
-        printf("merge, inputA[%02x] = %d\n", i, inputA[i]);
-    }
-
-    for(int i = 0; i < lengthB; ++i) {
-        printf("merge, inputB[%02x] = %d\n", i, inputB[i]);
-    }
-
-    for(int i = 0; i < (lengthA + lengthB); ++i) {
-        printf("merge, output[%02x] = %d\n", i, output[i]);
-    }
-
-    printf("temp\n");
 }
 
-void __mergesort(int input[], int output[], size_t num_input_elements) {
+void mergesort(int input[], int output[], size_t num_input_elements) {
 
     if(num_input_elements == 0) {
         return;
@@ -92,27 +64,13 @@ void __mergesort(int input[], int output[], size_t num_input_elements) {
             exit(-1);
         }
 
-        print_all();
-        __mergesort(firsthalf,  firsthalf_output,  firsthalf_size);
-        print_all();
-        __mergesort(secondhalf, secondhalf_output, secondhalf_size);
-        print_all();
+        mergesort(firsthalf,  firsthalf_output,  firsthalf_size);
+        mergesort(secondhalf, secondhalf_output, secondhalf_size);
         merge(firsthalf_output, firsthalf_size,
               secondhalf_output, secondhalf_size,
               output);
-        print_all();
 
         free(firsthalf_output);
         free(secondhalf_output);
     }
-}
-
-
-
-void mergesort(int input[], int output[], size_t num_input_elements) {
-    _input = input;
-    _output = output;
-    _num_input_elements = num_input_elements;
-    __mergesort(input, output, num_input_elements);
-
 }
