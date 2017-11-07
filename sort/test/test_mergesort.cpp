@@ -15,7 +15,7 @@ TEST_GROUP(FirstTestGroup) {
     }
 };
 
-TEST(FirstTestGroup, int_array_test) {
+TEST(FirstTestGroup, int_6array_test) {
 
     const size_t size_of_array = 6;
 
@@ -26,7 +26,22 @@ TEST(FirstTestGroup, int_array_test) {
     mergesort(input_unsorted, output, size_of_array);
 
     for(int i = 0; i < size_of_array; ++i) {
-        CHECK_EQUAL(input_sorted[i], input_unsorted[i]);
+        CHECK_EQUAL(input_sorted[i], output[i]);
+    }
+}
+
+TEST(FirstTestGroup, int_3array_test) {
+
+    const size_t size_of_array = 3;
+
+    int input_unsorted[size_of_array] = {1, 5, 4};
+    int output[size_of_array] = {0};
+    int input_sorted[size_of_array]   = {1, 4, 5};
+
+    mergesort(input_unsorted, output, size_of_array);
+
+    for(int i = 0; i < size_of_array; ++i) {
+        CHECK_EQUAL(input_sorted[i], output[i]);
     }
 }
 
