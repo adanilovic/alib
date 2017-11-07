@@ -25,7 +25,7 @@ TEST(FirstTestGroup, int_6array_test) {
 
     mergesort(input_unsorted, output, size_of_array);
 
-    for(int i = 0; i < size_of_array; ++i) {
+    for(size_t i = 0; i < size_of_array; ++i) {
         CHECK_EQUAL(input_sorted[i], output[i]);
     }
 }
@@ -40,7 +40,7 @@ TEST(FirstTestGroup, int_3array_test) {
 
     mergesort(input_unsorted, output, size_of_array);
 
-    for(int i = 0; i < size_of_array; ++i) {
+    for(size_t i = 0; i < size_of_array; ++i) {
         CHECK_EQUAL(input_sorted[i], output[i]);
     }
 }

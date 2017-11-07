@@ -4,9 +4,9 @@
 
 static void merge(int inputA[], size_t lengthA, int inputB[], size_t lengthB, int output[]) {
 
-    int i = 0;
-    int j = 0;
-    int k = 0;
+    size_t i = 0;
+    size_t j = 0;
+    size_t k = 0;
 
     for(k = 0; (k < lengthA + lengthB); ++k) {
 
