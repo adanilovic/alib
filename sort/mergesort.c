@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-static void merge(int inputA[], size_t lengthA, int inputB[], size_t lengthB, int output[]) {
+static void merge(const int inputA[], size_t lengthA, const int inputB[], size_t lengthB, int output[]) {
 
     size_t i = 0;
     size_t j = 0;
@@ -40,7 +40,7 @@ static void merge(int inputA[], size_t lengthA, int inputB[], size_t lengthB, in
     }
 }
 
-void mergesort(int input[], int output[], size_t num_input_elements) {
+void mergesort(const int input[], int output[], size_t num_input_elements) {
 
     if(num_input_elements == 0) {
         return;
@@ -53,11 +53,11 @@ void mergesort(int input[], int output[], size_t num_input_elements) {
         bool is_odd = num_input_elements % 2;
         size_t firsthalf_size = is_odd ? ((num_input_elements / 2) + 1) : (num_input_elements / 2);
         size_t secondhalf_size = num_input_elements / 2;
-        int * firsthalf = input;
-        int * secondhalf = input + firsthalf_size;
+        const int * firsthalf = input;
+        const int * secondhalf = input + firsthalf_size;
 
-        int * firsthalf_output = (int *)malloc(firsthalf_size);
-        int * secondhalf_output = (int *)malloc(secondhalf_size);
+        int * const firsthalf_output = (int *)malloc(firsthalf_size * 4);
+        int * const secondhalf_output = (int *)malloc(secondhalf_size * 4);
 
         if((!firsthalf_output) || (!secondhalf_output)) {
             printf("NULL pointer, abort\n");
