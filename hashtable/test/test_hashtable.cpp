@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "hashtable.h"
 
@@ -43,6 +44,8 @@ TEST(FirstTestGroup, count_duplicate_chars) {
         }
         
         CHECK_EQUAL(strings[i].num_dup, dup_count);
+        CHECK_EQUAL(true, hashtable_get('a'));
+        CHECK_EQUAL(false, hashtable_get('z'));
     }
 
 }

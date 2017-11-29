@@ -7,6 +7,7 @@ extern "C" {
 
 void hashtable_init();
 int hashtable_insert(char c);
+bool hashtable_get(char c);
 
 #ifdef __cplusplus
 }
