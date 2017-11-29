@@ -6,7 +6,7 @@
 #include "hashtable.h"
 
 #define table_size 20
-char table[table_size][table_size] = {0};
+static char table[table_size][table_size] = {0};
 
 #if 0
 static void print_table() {
@@ -56,7 +56,7 @@ int hashtable_insert(char c) {
         }
     }
 
-    //unable to insert into hash table
+    //unable to insert into hash table, allocate more memory
     return -1;
 }
 
