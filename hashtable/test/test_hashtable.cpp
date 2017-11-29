@@ -29,7 +29,8 @@ TEST(FirstTestGroup, count_duplicate_chars) {
     const test_string strings[] = {
         {"abcda",  5, 1},
         {"abcdab", 6, 2},
-        {"abcdef", 6, 0}
+        {"abcdef", 6, 0},
+        {"abcdefghijklmnopqrstuvwxyz", 25, 0}
     };
 
     for(unsigned int i = 0; i < (sizeof(strings)/sizeof(strings[0])); ++i) {
@@ -45,7 +46,7 @@ TEST(FirstTestGroup, count_duplicate_chars) {
         
         CHECK_EQUAL(strings[i].num_dup, dup_count);
         CHECK_EQUAL(true, hashtable_get('a'));
-        CHECK_EQUAL(false, hashtable_get('z'));
+        CHECK_EQUAL(false, hashtable_get('Z'));
     }
 
 }
