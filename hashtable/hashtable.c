@@ -24,7 +24,7 @@ static int hash(char c) {
     return (int)c % table_size;
 }
 
-void hashtable_init() {
+void char_hashtable_init() {
     memset(table, 0, sizeof(table));
 }
 
@@ -33,7 +33,7 @@ void hashtable_init() {
  *
  *
  */
-int hashtable_insert(char c) {
+int char_hashtable_insert(char c) {
 
     int h = hash(c);
     
@@ -60,7 +60,7 @@ int hashtable_insert(char c) {
     return -1;
 }
 
-bool hashtable_get(char c) {
+bool char_hashtable_get(char c) {
 
     int h = hash(c);
 

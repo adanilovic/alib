@@ -23,7 +23,7 @@ TEST(FirstTestGroup, int_6array_test) {
     int output[size_of_array] = {0};
     int input_sorted[size_of_array]   = {1, 2, 4, 5, 6, 7};
 
-    mergesort(input_unsorted, output, size_of_array);
+    mergesort_int(input_unsorted, output, size_of_array);
 
     for(size_t i = 0; i < size_of_array; ++i) {
         CHECK_EQUAL(input_sorted[i], output[i]);
@@ -38,7 +38,7 @@ TEST(FirstTestGroup, int_3array_test) {
     int output[size_of_array] = {0};
     int input_sorted[size_of_array]   = {1, 4, 5};
 
-    mergesort(input_unsorted, output, size_of_array);
+    mergesort_int(input_unsorted, output, size_of_array);
 
     for(size_t i = 0; i < size_of_array; ++i) {
         CHECK_EQUAL(input_sorted[i], output[i]);
@@ -63,7 +63,7 @@ TEST(FirstTestGroup, large_int_array_test) {
         21, 21, 31, 41,  51, 61, 71, 81, 91, 101,
         111, 121, 131, 141, 151, 161, 171, 181, 191, 201};
 
-    mergesort(input_unsorted, output, size_of_array);
+    mergesort_int(input_unsorted, output, size_of_array);
 
     for(size_t i = 0; i < size_of_array; ++i) {
         CHECK_EQUAL(input_sorted[i], output[i]);

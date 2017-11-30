@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-static void merge(const int inputA[], size_t lengthA, const int inputB[], size_t lengthB, int output[]) {
+#include "amath.h"
+
+static void merge_int(const int inputA[], size_t lengthA, const int inputB[], size_t lengthB, int output[]) {
 
     size_t i = 0;
     size_t j = 0;
@@ -40,7 +42,7 @@ static void merge(const int inputA[], size_t lengthA, const int inputB[], size_t
     }
 }
 
-void mergesort(const int input[], int output[], size_t num_input_elements) {
+void mergesort_int(const int input[], int output[], size_t num_input_elements) {
 
     if(num_input_elements == 0) {
         return;
@@ -64,9 +66,9 @@ void mergesort(const int input[], int output[], size_t num_input_elements) {
             exit(-1);
         }
 
-        mergesort(firsthalf,  firsthalf_output,  firsthalf_size);
-        mergesort(secondhalf, secondhalf_output, secondhalf_size);
-        merge(firsthalf_output, firsthalf_size,
+        mergesort_int(firsthalf,  firsthalf_output,  firsthalf_size);
+        mergesort_int(secondhalf, secondhalf_output, secondhalf_size);
+        merge_int(firsthalf_output, firsthalf_size,
               secondhalf_output, secondhalf_size,
               output);
 
@@ -74,3 +76,28 @@ void mergesort(const int input[], int output[], size_t num_input_elements) {
         free(secondhalf_output);
     }
 }
+
+/*static int _mergesort(void *data,
+    size_t num_input_elements,
+    size_t size_of_each_element,
+    int (*compare)(const void *elem1, const void* elem2)) {
+
+    return 0;
+}*/
+
+int mergesort(void *data,
+    size_t num_input_elements,
+    size_t size_of_each_element,
+    int (*compare)(const void *elem1, const void* elem2)) {
+
+    char * a = data;
+
+    compare(&a[0], &a[1 * size_of_each_element]);
+
+    return will_mul_size_t_overflow(num_input_elements, size_of_each_element);
+
+    //void *output = malloc(num_input_elements * size_of_each_element);
+
+    //_mergesort();
+}
+

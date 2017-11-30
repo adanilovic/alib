@@ -5,9 +5,11 @@
 extern "C" {
 #endif // #ifdef __cplusplus
 
-void hashtable_init();
-int hashtable_insert(char c);
-bool hashtable_get(char c);
+void char_hashtable_init();
+int char_hashtable_insert(char c);
+bool char_hashtable_get(char c);
+
+void char_hashtable_init();
 
 #ifdef __cplusplus
 }

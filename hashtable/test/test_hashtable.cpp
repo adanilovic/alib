@@ -41,16 +41,16 @@ TEST(FirstTestGroup, count_duplicate_chars) {
 
         int dup_count = 0;
 
-        hashtable_init();
+        char_hashtable_init();
         for(int j = 0; j < strings[i].string_len; ++j) {
-            if(hashtable_insert(strings[i].string[j])) {
+            if(char_hashtable_insert(strings[i].string[j])) {
                 dup_count++;
             }
         }
         
         CHECK_EQUAL(strings[i].num_dup, dup_count);
-        CHECK_EQUAL(true, hashtable_get(strings[i].char_in_string));
-        CHECK_EQUAL(false, hashtable_get(strings[i].char_not_in_string));
+        CHECK_EQUAL(true, char_hashtable_get(strings[i].char_in_string));
+        CHECK_EQUAL(false, char_hashtable_get(strings[i].char_not_in_string));
     }
 
 }
