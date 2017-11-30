@@ -77,27 +77,112 @@ void mergesort_int(const int input[], int output[], size_t num_input_elements) {
     }
 }
 
-/*static int _mergesort(void *data,
+static void merge(const void *inputA, size_t lengthA, const void *inputB, size_t lengthB, void *output,
+                  int (*compare)(const void *elem1, const void* elem2)) {
+
+    size_t i = 0;
+    size_t j = 0;
+    size_t k = 0;
+
+    for(k = 0; (k < lengthA + lengthB); ++k) {
+
+        if(i < lengthA) {
+            if(j < lengthB) {
+                if(inputA[i] < inputB[j]) {
+                    output[k] = inputA[i];
+                    ++i;
+                }
+                else {
+                    output[k] = inputB[j];
+                    ++j;
+                }
+            }
+            else {
+                output[k] = inputA[i];
+                ++i;
+            }
+        }
+        else {
+            if(j < lengthB) {
+                output[k] = inputB[j];
+                ++j;
+            }
+            else {
+                //all done
+            }
+        }
+
+
+    }
+}
+
+static int _mergesort(void *input_data, void *output_data,
     size_t num_input_elements,
     size_t size_of_each_element,
     int (*compare)(const void *elem1, const void* elem2)) {
 
+    char * a = input_data;
+    char * b = output_data;
+
+    compare(&a[0], &b[1 * size_of_each_element]);
+
+    if(num_input_elements == 0) {
+        return 0;
+    }
+    else if(num_input_elements == 1) {
+        b[0] = a[0];
+        return 0;
+    }
+    else {
+        bool is_odd = num_input_elements % 2;
+        size_t firsthalf_size = is_odd ? ((num_input_elements / 2) + 1) : (num_input_elements / 2);
+        size_t secondhalf_size = num_input_elements / 2;
+        const void * firsthalf = input_data;
+        const void * secondhalf = input_data + firsthalf_size;
+
+        void * const firsthalf_output = (void *)malloc(firsthalf_size * size_of_each_element);
+        void * const secondhalf_output = (void *)malloc(secondhalf_size * size_of_each_element);
+
+        if((!firsthalf_output) || (!secondhalf_output)) {
+            printf("NULL pointer, return -1\n");
+            return -1;
+        }
+
+        _mergesort(firsthalf,  firsthalf_output,  firsthalf_size, size_of_each_element, compare);
+        _mergesort(secondhalf, secondhalf_output, secondhalf_size, size_of_each_element, compare);
+        merge(firsthalf_output, firsthalf_size,
+              secondhalf_output, secondhalf_size,
+              output_data,
+              compare);
+
+        free(firsthalf_output);
+        free(secondhalf_output);
+    }
+
     return 0;
-}*/
+}
 
 int mergesort(void *data,
     size_t num_input_elements,
     size_t size_of_each_element,
     int (*compare)(const void *elem1, const void* elem2)) {
 
-    char * a = data;
+    if(will_mul_size_t_overflow(num_input_elements, size_of_each_element)) {
+        return -1;
+    }
 
-    compare(&a[0], &a[1 * size_of_each_element]);
+    void *output = malloc(num_input_elements * size_of_each_element);
 
-    return will_mul_size_t_overflow(num_input_elements, size_of_each_element);
+    if(!output) {
+        return -1;
+    }
 
-    //void *output = malloc(num_input_elements * size_of_each_element);
+    int ret = _mergesort(data, output, num_input_elements, size_of_each_element, compare);
 
-    //_mergesort();
+    if(output) {
+        free(output);
+    }
+
+    return ret;
 }
 
