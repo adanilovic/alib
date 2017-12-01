@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "amath.h"
 
@@ -78,33 +79,38 @@ void mergesort_int(const int input[], int output[], size_t num_input_elements) {
 }
 
 static void merge(const void *inputA, size_t lengthA, const void *inputB, size_t lengthB, void *output,
-                  int (*compare)(const void *elem1, const void* elem2)) {
+                  int (*compare)(const void *elem1, const void* elem2),
+                  size_t size_of_each_element) {
 
     size_t i = 0;
     size_t j = 0;
     size_t k = 0;
 
+    char *a = (char *)inputA;
+    char *b = (char *)inputB;
+    char *o = (char *)output;
+
     for(k = 0; (k < lengthA + lengthB); ++k) {
 
         if(i < lengthA) {
             if(j < lengthB) {
-                if(inputA[i] < inputB[j]) {
-                    output[k] = inputA[i];
+                if(-1 == compare(&a[i * size_of_each_element], &b[j * size_of_each_element])) {
+                    memcpy(&o[k], &a[i], size_of_each_element);
                     ++i;
                 }
                 else {
-                    output[k] = inputB[j];
+                    memcpy(&o[k], &b[j], size_of_each_element);
                     ++j;
                 }
             }
             else {
-                output[k] = inputA[i];
+                memcpy(&o[k], &a[i], size_of_each_element);
                 ++i;
             }
         }
         else {
             if(j < lengthB) {
-                output[k] = inputB[j];
+                memcpy(&o[k], &b[j], size_of_each_element);
                 ++j;
             }
             else {
@@ -116,21 +122,19 @@ static void merge(const void *inputA, size_t lengthA, const void *inputB, size_t
     }
 }
 
-static int _mergesort(void *input_data, void *output_data,
+static int _mergesort(const void *input_data, void *output_data,
     size_t num_input_elements,
     size_t size_of_each_element,
     int (*compare)(const void *elem1, const void* elem2)) {
 
-    char * a = input_data;
+    const char * a = input_data;
     char * b = output_data;
-
-    compare(&a[0], &b[1 * size_of_each_element]);
 
     if(num_input_elements == 0) {
         return 0;
     }
     else if(num_input_elements == 1) {
-        b[0] = a[0];
+        memcpy(&b[0], &a[0], size_of_each_element);
         return 0;
     }
     else {
@@ -153,7 +157,8 @@ static int _mergesort(void *input_data, void *output_data,
         merge(firsthalf_output, firsthalf_size,
               secondhalf_output, secondhalf_size,
               output_data,
-              compare);
+              compare,
+              size_of_each_element);
 
         free(firsthalf_output);
         free(secondhalf_output);
