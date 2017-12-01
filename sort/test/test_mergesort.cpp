@@ -70,6 +70,51 @@ TEST(FirstTestGroup, large_int_array_test) {
     }
 }
 
+int compare_int(const void *a, const void *b) {
+
+    const int *_a = (const int *)a;
+    const int *_b = (const int *)b;
+
+    printf("AD - a = %d, b = %d\n", *_a, *_b);
+
+    if(*_a == *_b) {
+        return 0;
+    }
+    else if(*_a > *_b) {
+        return 1;
+    }
+
+    return -1;
+}
+
+TEST(FirstTestGroup, generic_int_test) {
+
+    const int a = 0;
+    const int b = 1;
+    const int c = -1;
+
+    CHECK(0  == compare_int(&a, &a));
+    CHECK(1  == compare_int(&b, &a));
+    CHECK(-1 == compare_int(&a, &b));
+
+    CHECK(1  == compare_int(&a, &c));
+    CHECK(-1 == compare_int(&c, &a));
+
+    //const size_t size_of_array = 6;
+    //int input_unsorted[size_of_array] = {1, 5, 4, 6, 7, 2};
+    //int input_sorted[size_of_array]   = {1, 2, 4, 5, 6, 7};
+
+    const size_t size_of_array = 4;
+    int input_unsorted[size_of_array] = {1, 2, 4, 3};
+    int input_sorted[size_of_array]   = {1, 2, 3, 4};
+
+    mergesort(input_unsorted, size_of_array, sizeof(int), compare_int);
+
+    for(size_t i = 0; i < size_of_array; ++i) {
+        CHECK_EQUAL(input_unsorted[i], input_sorted[i]);
+    }
+}
+
 int main(int ac, char** av) {
     return CommandLineTestRunner::RunAllTests(ac, av);
 }

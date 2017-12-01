@@ -86,9 +86,11 @@ static void merge(const void *inputA, size_t lengthA, const void *inputB, size_t
     size_t j = 0;
     size_t k = 0;
 
-    char *a = (char *)inputA;
-    char *b = (char *)inputB;
+    const char *a = (const char *)inputA;
+    const char *b = (const char *)inputB;
     char *o = (char *)output;
+
+    printf("AD - merge, a = %d, b = %d\n", *(int *)a, *(int *)b);
 
     for(k = 0; (k < lengthA + lengthB); ++k) {
 
@@ -96,21 +98,25 @@ static void merge(const void *inputA, size_t lengthA, const void *inputB, size_t
             if(j < lengthB) {
                 if(-1 == compare(&a[i * size_of_each_element], &b[j * size_of_each_element])) {
                     memcpy(&o[k], &a[i], size_of_each_element);
+                    printf("AD - merge output, o = %d\n", (int)o[k]);
                     ++i;
                 }
                 else {
                     memcpy(&o[k], &b[j], size_of_each_element);
+                    printf("AD - merge output, o = %d\n", (int)o[k]);
                     ++j;
                 }
             }
             else {
                 memcpy(&o[k], &a[i], size_of_each_element);
+                printf("AD - merge output, o = %d\n", (int)o[k]);
                 ++i;
             }
         }
         else {
             if(j < lengthB) {
                 memcpy(&o[k], &b[j], size_of_each_element);
+                printf("AD - merge output, o = %d\n", (int)o[k]);
                 ++j;
             }
             else {
@@ -127,13 +133,15 @@ static int _mergesort(const void *input_data, void *output_data,
     size_t size_of_each_element,
     int (*compare)(const void *elem1, const void* elem2)) {
 
-    const char * a = input_data;
-    char * b = output_data;
+    const char *a = input_data;
 
     if(num_input_elements == 0) {
+        printf("AD - num elements 0\n");
         return 0;
     }
     else if(num_input_elements == 1) {
+        printf("AD - num elements 1\n");
+        char *b = output_data;
         memcpy(&b[0], &a[0], size_of_each_element);
         return 0;
     }
@@ -141,8 +149,11 @@ static int _mergesort(const void *input_data, void *output_data,
         bool is_odd = num_input_elements % 2;
         size_t firsthalf_size = is_odd ? ((num_input_elements / 2) + 1) : (num_input_elements / 2);
         size_t secondhalf_size = num_input_elements / 2;
+
+        printf("AD - firsthalf_size = %08lx, secondhalf_size  = %08lx\n", firsthalf_size, secondhalf_size );
+
         const void * firsthalf = input_data;
-        const void * secondhalf = input_data + firsthalf_size;
+        const void * secondhalf = (void *)((char *)input_data + (firsthalf_size * size_of_each_element));
 
         void * const firsthalf_output = (void *)malloc(firsthalf_size * size_of_each_element);
         void * const secondhalf_output = (void *)malloc(secondhalf_size * size_of_each_element);
@@ -176,7 +187,7 @@ int mergesort(void *data,
         return -1;
     }
 
-    void *output = malloc(num_input_elements * size_of_each_element);
+    void *output = calloc(num_input_elements * size_of_each_element, 1);
 
     if(!output) {
         return -1;
@@ -184,10 +195,13 @@ int mergesort(void *data,
 
     int ret = _mergesort(data, output, num_input_elements, size_of_each_element, compare);
 
+    if(!ret) {
+        memcpy(output, data, num_input_elements * size_of_each_element);
+    }
+
     if(output) {
         free(output);
     }
 
     return ret;
 }
-
