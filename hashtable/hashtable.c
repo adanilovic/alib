@@ -36,7 +36,7 @@ void char_hashtable_init() {
 int char_hashtable_insert(char c) {
 
     int h = hash(c);
-    
+
     for(int i = 0; i < table_size; ++i) {
 
         #if 0
@@ -74,3 +74,45 @@ bool char_hashtable_get(char c) {
 
     return 0;
 }
+
+/*int hashtable_insert(void * data, size_t size_of_each_element) {
+
+    int h = hash(c);
+
+    for(int i = 0; i < table_size; ++i) {
+
+        #if 0
+        print_table();
+        #endif // #if 0
+
+        if(table[h][i] == c) {
+            //char already present
+            return 1;
+        }
+        else {
+            if(table[h][i] == 0) {
+                table[h][i] = c;
+                //successful insert
+                return 0;
+            }
+        }
+    }
+
+    //unable to insert into hash table, allocate more memory
+    return -1;
+}
+
+bool hashtable_get(char c) {
+
+    int h = hash(c);
+
+    for(int i = 0; i < table_size; ++i) {
+
+        if(table[h][i] == c) {
+            //char already present
+            return 1;
+        }
+    }
+
+    return 0;
+}*/

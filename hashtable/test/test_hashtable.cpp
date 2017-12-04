@@ -89,7 +89,6 @@ TEST(FirstTestGroup, count_duplicate_chars) {
         j++;
         CHECK(-1 == hashtable_insert(strings[i].string[j]));
     }
-
 }*/
 
 int main(int ac, char** av) {
