@@ -3,6 +3,7 @@
 import os
 import errno
 import subprocess
+import argparse
 
 def print_fail_banner():
 
@@ -17,6 +18,12 @@ def print_success_banner():
     print "---------------------------"
 
 def main():
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--unit-tests", help="Build all code for unit tests",
+                        action="store_true")
+    args = parser.parse_args()
+
     try:
         os.makedirs('build')
     except OSError:
@@ -24,7 +31,7 @@ def main():
             raise
 
     os.chdir('build')
-    ret = subprocess.call(['cmake', '../'])
+    ret = subprocess.call(['cmake', '-DUNIT_TESTS=' + str(args.unit_tests), '../'])
     if ret != 0:
         print_fail_banner()
     else:
