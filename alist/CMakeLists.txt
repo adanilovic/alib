@@ -5,6 +5,5 @@ set_target_properties(alist PROPERTIES COMPILE_FLAGS "-ggdb -Wall -Wextra -Werro
 
 if(${UNIT_TESTS})
   target_link_libraries(alist cpputest)
+  add_subdirectory(test)
 endif()
-
-add_subdirectory(test)

@@ -6,9 +6,9 @@
 
 #include "alist_private.h"
 
-List * list_init() {
+List *list_init() {
 
-    List * alist = malloc(sizeof(List));
+    List *alist = malloc(sizeof(List));
 
     if (!alist) {
         return NULL;
@@ -23,7 +23,7 @@ List * list_init() {
     return alist;
 }
 
-int list_add_next(List * alist, const void * const data) {
+int list_add_next(List *alist, const void *const data) {
 
     if ((!alist) || (!data)) {
         return -1;
@@ -56,10 +56,20 @@ int list_add_next(List * alist, const void * const data) {
     return 0;
 }
 
-/*int list_remove_next(const void * const data) {
+int list_destroy(List *alist) {
 
+    if (!alist) {
+        return -1;
+    }
+    list_elem *curr = alist->head;
+
+    while (curr) {
+        list_elem *next = curr->next;
+        free(curr);
+        curr = next;
+    }
+
+    free(alist);
+
+    return 0;
 }
-
-void list_destroy(List * list) {
-
-}*/

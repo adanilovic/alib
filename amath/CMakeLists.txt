@@ -4,6 +4,5 @@ set_target_properties(amath PROPERTIES COMPILE_FLAGS "-ggdb -Wall -Wextra -Werro
 
 if(${UNIT_TESTS})
   target_link_libraries(amath cpputest)
+  add_subdirectory(test)
 endif()
-
-add_subdirectory(test)

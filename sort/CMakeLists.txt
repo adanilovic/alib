@@ -5,6 +5,5 @@ set_target_properties(mergesort PROPERTIES COMPILE_FLAGS "-ggdb -Wall -Wextra -W
 
 if(${UNIT_TESTS})
   target_link_libraries(mergesort cpputest)
+  add_subdirectory(test)
 endif()
-
-add_subdirectory(test)

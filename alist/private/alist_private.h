@@ -10,13 +10,13 @@ extern "C" {
 typedef struct list_elem list_elem;
 
 struct list_elem {
-    const void * data;
-    list_elem * next;
+    const void *data;
+    list_elem *next;
 };
 
 struct List {
-    list_elem * head;
-    list_elem * tail;
+    list_elem *head;
+    list_elem *tail;
     size_t num_elements;
     void (*destroy_elem)(void *data);
     int (*match)(const void *elem1, const void *elem2);

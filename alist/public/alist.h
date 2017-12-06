@@ -8,6 +8,7 @@ extern "C" {
 typedef struct List List;
 List * list_init();
 int list_add_next(List * alist, const void * const data);
+int list_destroy(List *alist);
 
 #ifdef __cplusplus
 }

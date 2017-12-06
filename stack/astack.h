@@ -26,11 +26,8 @@ typedef struct {
     stack_frame_meta *sf_p;
 } Stack;
 
-int stack_init(Stack *stack);
-void stack_destroy();
-int stack_push();
-int stack_pop();
-void *stack_peek();
+int stack_init(Stack *astack);
+void stack_destroy(Stack *astack);
 
 #ifdef __cplusplus
 }
