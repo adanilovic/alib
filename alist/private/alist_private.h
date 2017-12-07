@@ -7,10 +7,8 @@ extern "C" {
 
 #include "alist.h"
 
-typedef struct list_elem list_elem;
-
 struct list_elem {
-    const void *data;
+    void *data;
     list_elem *next;
 };
 
