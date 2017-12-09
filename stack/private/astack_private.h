@@ -5,6 +5,8 @@
 extern "C" {
 #endif // #ifdef __cplusplus
 
+#include "astack.h"
+
 /*
 |-----------------------|
 |Frame 1                |
@@ -17,17 +19,16 @@ extern "C" {
 |-----------------------| 
 */
 
-typedef struct {
+typedef struct stack_frame_meta stack_frame_meta;
+
+struct stack_frame_meta {
     void *data_p;
     size_t size_of_stack_frame_data;
-} stack_frame_meta;
+};
 
-typedef struct {
+struct Stack {
     stack_frame_meta *sf_p;
-} Stack;
-
-int stack_init(Stack *astack);
-void stack_destroy(Stack *astack);
+};
 
 #ifdef __cplusplus
 }

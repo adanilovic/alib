@@ -7,21 +7,26 @@ import argparse
 
 def print_fail_banner():
 
-    print "---------------------------"
-    print "----------Failure----------"
-    print "---------------------------"
+    print '---------------------------'
+    print '----------Failure----------'
+    print '---------------------------'
 
 def print_success_banner():
 
-    print "---------------------------"
-    print "----------Success----------"
-    print "---------------------------"
+    print '---------------------------'
+    print '----------Success----------'
+    print '---------------------------'
 
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--unit-tests", help="Build all code for unit tests",
-                        action="store_true")
+    parser.add_argument('--build-type', help='Specify Built Type',
+                        action='store', default='Debug', choices=['Release',
+                                                                  'Debug'])
+    parser.add_argument('--unit-tests', help='Build all code for unit tests',
+                        action='store_true')
+    parser.add_argument('--graph-depend', help='Generate graph of dependencies',
+                        action='store_true', default='False')
     args = parser.parse_args()
 
     try:
@@ -31,7 +36,10 @@ def main():
             raise
 
     os.chdir('build')
-    ret = subprocess.call(['cmake', '-DUNIT_TESTS=' + str(args.unit_tests), '../'])
+    ret = subprocess.call(['cmake', '-DUNIT_TESTS=' + str(args.unit_tests),
+                           '-DBUILD_TYPE=' + str(args.build_type),
+                           '-DGRAPH_DEPENDENCIES=' + str(args.graph_depend),
+                           '../'])
     if ret != 0:
         print_fail_banner()
     else:
@@ -43,5 +51,5 @@ def main():
     else:
         print_success_banner()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

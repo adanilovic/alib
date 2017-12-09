@@ -1,6 +1,6 @@
-add_library(astack astack.c)
-target_include_directories(astack PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(astack cpputest)
+add_library(astack ${CMAKE_CURRENT_SOURCE_DIR}/private/astack.c)
+target_include_directories(astack PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/public)
+target_include_directories(astack PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/private)
 set_target_properties(astack PROPERTIES COMPILE_FLAGS "-ggdb -Wall -Wextra -Werror")
 
 if(${UNIT_TESTS})

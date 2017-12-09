@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "astack.h"
+#include "astack_private.h"
 
-int stack_init(Stack *astack) {
+Stack * stack_init() {
 
     astack->sf_p = malloc(sizeof(stack_frame_meta));
 
