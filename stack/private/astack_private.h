@@ -1,5 +1,5 @@
-#ifndef _STACK_H_
-#define _STACK_H_
+#ifndef _ASTACK_PRIVATE_H_
+#define _ASTACK_PRIVATE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,4 +34,4 @@ struct Stack {
 }
 #endif // #ifdef __cplusplus
 
-#endif // #ifndef _STACK_H_
+#endif // #ifndef _ASTACK_PRIVATE_H_
