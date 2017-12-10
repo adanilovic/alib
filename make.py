@@ -36,7 +36,13 @@ def main():
             raise
 
     os.chdir('build')
-    ret = subprocess.call(['cmake', '-DUNIT_TESTS=' + str(args.unit_tests),
+
+    graph_depend = ''
+    if args.graph_depend == True:
+        graph_depend = '--graphviz=alib.graph'
+
+    ret = subprocess.call(['cmake', graph_depend,
+                           '-DUNIT_TESTS=' + str(args.unit_tests),
                            '-DBUILD_TYPE=' + str(args.build_type),
                            '-DGRAPH_DEPENDENCIES=' + str(args.graph_depend),
                            '../'])
