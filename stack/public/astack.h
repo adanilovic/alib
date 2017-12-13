@@ -8,9 +8,9 @@ extern "C" {
 typedef struct Stack Stack;
 
 Stack * stack_init();
-int stack_push(Stack *astack);
-void * stack_pop();
-void stack_destroy(Stack *astack);
+int stack_push(Stack *astack, void * data);
+void * stack_pop(Stack *astack);
+int stack_destroy(Stack *astack);
 
 #ifdef __cplusplus
 }

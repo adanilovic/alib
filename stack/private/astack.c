@@ -22,16 +22,36 @@ Stack *stack_init() {
     return astack;
 }
 
-void stack_destroy(Stack *astack) {
+int stack_push(Stack *astack, void * data) {
 
     if (!astack) {
-        return;
+        return -1;
+    }
+
+    return list_add_to_front(astack->alist, data);
+}
+
+void * stack_pop(Stack *astack) {
+
+    if (!astack) {
+        return NULL;
+    }
+
+    return list_remove_from_front(astack->alist);
+}
+
+int stack_destroy(Stack *astack) {
+
+    if (!astack) {
+        return -1;
     }
 
     if (!astack->alist) {
-        return;
+        return -1;
     }
 
     (void)list_destroy(&astack->alist);
     free(astack);
+
+    return 0;
 }

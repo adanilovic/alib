@@ -16,9 +16,21 @@ TEST_GROUP(FirstTestGroup) {
 };
 
 TEST(FirstTestGroup, stack_init_test) {
-    Stack *my_stack = stack_init();
-    CHECK(NULL != my_stack);
-    stack_destroy(my_stack);
+    Stack *astack = stack_init();
+    CHECK(NULL != astack);
+    CHECK(0 == stack_destroy(astack));
+}
+
+TEST(FirstTestGroup, stack_push_pop_test) {
+    Stack *astack = stack_init();
+    CHECK(NULL != astack);
+
+    int data[] = {0};
+
+    CHECK(0 == stack_push(astack, &data[0]));
+    CHECK(data[0] == *(int *)stack_pop(astack));
+
+    CHECK(0 == stack_destroy(astack));
 }
  
 int main(int ac, char** av) {
