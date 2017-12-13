@@ -152,12 +152,12 @@ TEST(FirstTestGroup, init_iterate_end) {
 
     int data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    for (size_t i = 0; i < sizeof(data); ++i) {
+    for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
         CHECK(0 == list_add_to_end(alist, &data[i]));
     }
 
     list_elem * elem = list_head(alist);
-    for (size_t i = 0; i < sizeof(data); ++i) {
+    for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
         CHECK(data[i] == *(int *)list_data(elem));
         elem = list_next(elem);
     }
@@ -175,13 +175,13 @@ TEST(FirstTestGroup, init_iterate_front) {
 
     int data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    for (size_t i = 0; i < sizeof(data); ++i) {
+    for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
         CHECK(0 == list_add_to_front(alist, &data[i]));
     }
 
     list_elem * elem = list_head(alist);
-    for (size_t i = 0; i < sizeof(data); ++i) {
-        CHECK(data[sizeof(data) - 1 - i] == *(int *)list_data(elem));
+    for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
+        CHECK(data[sizeof(data)/sizeof(data[0]) - 1 - i] == *(int *)list_data(elem));
         elem = list_next(elem);
     }
     CHECK(NULL == elem);
