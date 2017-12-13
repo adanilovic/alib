@@ -162,7 +162,6 @@ TEST(FirstTestGroup, init_iterate_end) {
         elem = list_next(elem);
     }
     CHECK(NULL == elem);
-
     CHECK(0 == list_destroy(&alist));
     CHECK(NULL == alist);
 }
@@ -186,7 +185,39 @@ TEST(FirstTestGroup, init_iterate_front) {
         elem = list_next(elem);
     }
     CHECK(NULL == elem);
+    CHECK(0 == list_destroy(&alist));
+    CHECK(NULL == alist);
+}
 
+TEST(FirstTestGroup, init_iterate_end_remove_from_end) {
+
+    List *alist = list_init();
+    CHECK(NULL != alist);
+    CHECK(NULL == list_head(alist));
+    CHECK(NULL == list_tail(alist));
+
+    int data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
+        CHECK(i == list_num_elements(alist));
+        CHECK(0 == list_add_to_end(alist, &data[i]));
+    }
+
+    CHECK(sizeof(data)/sizeof(data[0]) == list_num_elements(alist));
+
+    //list_print_each(alist);
+
+    int i = sizeof(data)/sizeof(data[0]);
+    int *num = (int *)list_remove_from_end(alist);
+
+    while (num) {
+        CHECK(*num == data[i-1]);
+        num = (int *)list_remove_from_end(alist);
+        --i;
+    }
+
+    CHECK(!num);
+    CHECK(0 == list_num_elements(alist));
     CHECK(0 == list_destroy(&alist));
     CHECK(NULL == alist);
 }

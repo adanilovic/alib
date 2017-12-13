@@ -7,7 +7,9 @@ extern "C" {
 
 typedef struct Stack Stack;
 
-Stack *stack_init();
+Stack * stack_init();
+int stack_push(Stack *astack);
+void * stack_pop();
 void stack_destroy(Stack *astack);
 
 #ifdef __cplusplus
