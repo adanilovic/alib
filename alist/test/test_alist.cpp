@@ -196,14 +196,16 @@ TEST(FirstTestGroup, init_iterate_end_remove_from_end) {
     CHECK(NULL == list_head(alist));
     CHECK(NULL == list_tail(alist));
 
+    CHECK(NULL == list_remove_from_end(alist));
+
     int data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
-        CHECK(i == list_num_elements(alist));
+        CHECK(i == list_size(alist));
         CHECK(0 == list_add_to_end(alist, &data[i]));
     }
 
-    CHECK(sizeof(data)/sizeof(data[0]) == list_num_elements(alist));
+    CHECK(sizeof(data)/sizeof(data[0]) == list_size(alist));
 
     //list_print_each(alist);
 
@@ -217,10 +219,50 @@ TEST(FirstTestGroup, init_iterate_end_remove_from_end) {
     }
 
     CHECK(!num);
-    CHECK(0 == list_num_elements(alist));
+    CHECK(0 == list_size(alist));
     CHECK(0 == list_destroy(&alist));
     CHECK(NULL == alist);
 }
+
+TEST(FirstTestGroup, init_iterate_end_remove_from_front) {
+
+    List *alist = list_init();
+    CHECK(NULL != alist);
+    CHECK(NULL == list_head(alist));
+    CHECK(NULL == list_tail(alist));
+
+    CHECK(NULL == list_remove_from_front(alist));
+
+    int data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
+        CHECK(i == list_size(alist));
+        CHECK(0 == list_add_to_end(alist, &data[i]));
+    }
+
+    CHECK(sizeof(data)/sizeof(data[0]) == list_size(alist));
+
+    //list_print_each(alist);
+
+    int i = 0;
+    int *num = (int *)list_remove_from_front(alist);
+
+    while (num) {
+        CHECK(*num == data[i]);
+        num = (int *)list_remove_from_front(alist);
+        ++i;
+    }
+
+    CHECK(i == sizeof(data)/sizeof(data[0]));
+    CHECK(!num);
+
+    CHECK(NULL == list_remove_from_front(alist));
+
+    CHECK(0 == list_size(alist));
+    CHECK(0 == list_destroy(&alist));
+    CHECK(NULL == alist);
+}
+
 
 int main(int ac, char** av) {
     return CommandLineTestRunner::RunAllTests(ac, av);

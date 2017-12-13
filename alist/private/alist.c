@@ -148,6 +148,34 @@ int list_add_to_front(List *alist, void *const data) {
     return 0;
 }
 
+void * list_remove_from_front(List *alist) {
+
+    if ((!alist) ||
+        (alist->num_elements == 0) ||
+        (!alist->tail) ||
+        (!alist->head)) {
+        return NULL;
+    }
+
+    void * data = alist->head->data;
+
+    if (!(alist->head->next)) {
+        assert(alist->head == alist->tail);
+        free(alist->head);
+        alist->head = NULL;
+        alist->tail = NULL;
+    }
+    else {
+        list_elem * new_head = alist->head->next;
+        free(alist->head);
+        alist->head = new_head;
+    }
+
+    alist->num_elements--;
+
+    return data;
+}
+
 size_t list_size(const List * const alist) {
 
     if (!alist) {
