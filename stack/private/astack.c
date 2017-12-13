@@ -31,6 +31,24 @@ int stack_push(Stack *astack, void * data) {
     return list_add_to_front(astack->alist, data);
 }
 
+void * stack_peek(Stack *astack) {
+
+    if (!astack) {
+        return NULL;
+    }
+
+    return list_data(list_head(astack->alist));
+}
+
+size_t stack_size(Stack *astack) {
+
+    if (!astack) {
+        return 0;
+    }
+
+    return list_size(astack->alist);
+}
+
 void * stack_pop(Stack *astack) {
 
     if (!astack) {

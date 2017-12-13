@@ -28,6 +28,8 @@ TEST(FirstTestGroup, stack_push_pop_test) {
     int data[] = {0};
 
     CHECK(0 == stack_push(astack, &data[0]));
+    CHECK(data[0] == *(int *)stack_peek(astack));
+    CHECK(1 == stack_size(astack));
     CHECK(data[0] == *(int *)stack_pop(astack));
 
     CHECK(0 == stack_destroy(astack));
