@@ -6,6 +6,7 @@ extern "C" {
 #endif // #ifdef __cplusplus
 
 #include "astack.h"
+#include "alist.h"
 
 /*
 |-----------------------|
@@ -19,15 +20,8 @@ extern "C" {
 |-----------------------| 
 */
 
-typedef struct stack_frame_meta stack_frame_meta;
-
-struct stack_frame_meta {
-    void *data_p;
-    size_t size_of_stack_frame_data;
-};
-
 struct Stack {
-    stack_frame_meta *sf_p;
+    List * alist;
 };
 
 #ifdef __cplusplus

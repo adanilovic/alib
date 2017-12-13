@@ -12,14 +12,12 @@ Stack *stack_init() {
         return NULL;
     }
 
-    astack->sf_p = malloc(sizeof(stack_frame_meta));
+    astack->alist = list_init();
 
-    if (!astack->sf_p) {
+    if (!astack->alist) {
+        free(astack);
         return NULL;
     }
-
-    astack->sf_p->data_p = NULL;
-    astack->sf_p->size_of_stack_frame_data = 0;
 
     return astack;
 }
@@ -30,10 +28,10 @@ void stack_destroy(Stack *astack) {
         return;
     }
 
-    if (!astack->sf_p) {
+    if (!astack->alist) {
         return;
     }
 
-    free(astack->sf_p);
+    (void)list_destroy(&astack->alist);
     free(astack);
 }

@@ -15,7 +15,7 @@ TEST_GROUP(FirstTestGroup) {
     }
 };
 
-TEST(FirstTestGroup, stack_test) {
+TEST(FirstTestGroup, stack_init_test) {
     Stack *my_stack = stack_init();
     CHECK(NULL != my_stack);
     stack_destroy(my_stack);
